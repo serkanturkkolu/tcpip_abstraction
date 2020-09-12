@@ -1,0 +1,3 @@
+/Users/serkan/Documents/qt_projects/tcpip_abstraction/CMakeFiles/rebuild_cache.dir
+/Users/serkan/Documents/qt_projects/tcpip_abstraction/CMakeFiles/edit_cache.dir
+/Users/serkan/Documents/qt_projects/tcpip_abstraction/CMakeFiles/tcpip_abstraction.dir
