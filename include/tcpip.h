@@ -23,10 +23,10 @@ struct sockaddr_in m_serv_addr;
 int m_clilen = sizeof(m_serv_addr);
 
 struct sockaddr_in m_cli_addr;
-int clientAddrSize = sizeof(m_cli_addr);
+int m_servlen = sizeof(m_cli_addr);
 
+SOCKET m_newsockfd = INVALID_SOCKET;
 SOCKET m_sockfd = INVALID_SOCKET;
-
 
 #elif defined __linux__ || defined __APPLE__
 private:
