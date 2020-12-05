@@ -30,6 +30,7 @@ public:
     virtual int connect() = 0;
     virtual int accept() = 0;
     virtual int close() = 0;
+    virtual const char *getConnectedIpAddress()=0;
 protected:
     int sock_port_no;
     char serverAddress[32] = { 0 };

@@ -35,20 +35,22 @@ private:
     socklen_t m_clilen , m_servlen;
     static const int MAX_BUFFER_SIZE=1024;
     struct sockaddr_in m_serv_addr, m_cli_addr;
+    char connectedIpAddress[INET_ADDRSTRLEN];
 #endif
 public:
     TcpIp(ITcpIp::Type t, const char *address, int port):ITcpIp(t,address,port){}
     TcpIp(ITcpIp::Type t, const char *address):ITcpIp(t,address){}
     TcpIp(ITcpIp::Type t):ITcpIp(t){}
-    virtual int write(const unsigned char sending_data[],size_t len)override;
-    virtual int read(unsigned char *)override;
-    virtual int socket(int)override;
-    virtual int socket()override;
-    virtual int bind()override;
-    virtual int listen()override;
-    virtual int connect()override;
-    virtual int accept()override;
-    virtual int close()override;
+    int write(const unsigned char sending_data[],size_t len)override;
+    int read(unsigned char *)override;
+    int socket(int)override;
+    int socket()override;
+    int bind()override;
+    int listen()override;
+    int connect()override;
+    int accept()override;
+    int close()override;
+    const char *getConnectedIpAddress()override;
 private:
 
 };

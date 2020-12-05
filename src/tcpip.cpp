@@ -47,7 +47,7 @@ int TcpIp::read(unsigned char *read_data){
         return recvfrom(m_newsockfd, (char *)read_data, MAX_BUFFER_SIZE, 0, (struct sockaddr *) &m_cli_addr, &m_clilen); //MSG_WAITALL for 0;
     }
     else{
-        return recvfrom(m_newsockfd, (char *)read_data, MAX_BUFFER_SIZE, 0, (struct sockaddr *) &m_serv_addr, &m_clilen); //MSG_WAITALL for 0;
+        return recvfrom(m_newsockfd, (char *)read_data, MAX_BUFFER_SIZE, 0, (struct sockaddr *) &m_serv_addr, &m_servlen); //MSG_WAITALL for 0;
     }
 
 }
@@ -97,6 +97,7 @@ int TcpIp::bind(){
     int b = ::bind(m_sockfd, (const struct sockaddr *)&m_serv_addr, sizeof(m_serv_addr));
 
     m_clilen = sizeof(m_cli_addr);  //len is value/resuslt
+    m_servlen = sizeof(m_serv_addr);  //len is value/resuslt
     return b;
 }
 
@@ -112,14 +113,23 @@ int TcpIp::close() {
 
 
 int TcpIp::listen(){
-    return ::listen(m_sockfd, 3);
+    return ::listen(m_sockfd, 5);
 }
 
 int TcpIp::accept(){
-    return m_newsockfd = ::accept(m_sockfd,(sockaddr *)&m_serv_addr,&m_servlen);
+    m_newsockfd = ::accept(m_sockfd,(sockaddr *)&m_serv_addr,&m_servlen);
+    inet_ntop(AF_INET, &(m_serv_addr.sin_addr), connectedIpAddress, INET_ADDRSTRLEN); 
+    return m_newsockfd;
 }
 
 int TcpIp::connect(){
     m_newsockfd = m_sockfd;
-    return ::connect(m_newsockfd,(sockaddr *)&m_serv_addr,sizeof(m_serv_addr));
+    int retVal = ::connect(m_newsockfd,(sockaddr *)&m_serv_addr,sizeof(m_serv_addr));
+    if(retVal>=0)
+        inet_ntop(AF_INET, &(m_serv_addr.sin_addr), connectedIpAddress, INET_ADDRSTRLEN); 
+    return retVal; 
+}
+
+const char *TcpIp::getConnectedIpAddress(){ 
+    return connectedIpAddress;
 }
