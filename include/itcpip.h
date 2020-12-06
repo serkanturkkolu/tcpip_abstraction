@@ -3,6 +3,7 @@
 #define _ITCPIP_H
 #include <string>
 #include <vector>
+#include <cstring>
 
 class ITcpIp {
 #define DEFAULT_ADDRESS "127.0.0.1"
